@@ -8,5 +8,5 @@
 
 ```bash
 sudo npm i -g lt
-lt --port 3000 # run https proxy and open the page in browser
+lt --port 3000 -h http://localtunnel.me # run https proxy and open the page in browser
 ```

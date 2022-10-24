@@ -7,13 +7,13 @@
     },
     "content_scripts": [{
         "js": ["content-script.ts"],
-        "matches": ["<all_urls>"]
+        "matches": ["https://*/*", "http://*/*"]
     }],
     "action": {},
     "permissions": [
-        "scripting",
         "activeTab"
     ],
+    "host_permissions": ["<all_urls>"],
     "externally_connectable": {
         "matches": ["https://*.loca.lt/*", "*://localhost/*"]
     }
