@@ -4,7 +4,11 @@ console.log('[content.js]. init')
 
 const comlib = init_comlib('content', 1)
 
-comlib.content2web.on('TEST_MSG', async data => {
-  const res = await comlib.content2bg.send('TEST_MSG', data)
-  comlib.content2web.send('TEST_MSG_RES', res)
+comlib.content2web.on('w2c', msg => {
+  comlib.content2bg.send('c2b', msg)
+})
+
+
+comlib.bg2content.on(data => {
+  comlib.content2web.send('c2w', data)
 })
