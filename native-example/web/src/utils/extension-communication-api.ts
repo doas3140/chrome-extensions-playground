@@ -1,4 +1,4 @@
-export function init_comlib(ID: 'web' | 'content' | 'bg', LOG: 0 | 1) {
+export function init_comlib(ID: 'web' | 'content' | 'bg' | 'native', LOG: 0 | 1, NATIVE_APP: string | undefined = undefined) {
   return {
     content2web: {
       send: (type: string, message: any) => {
@@ -37,7 +37,7 @@ export function init_comlib(ID: 'web' | 'content' | 'bg', LOG: 0 | 1) {
           if (LOG > 0) console.log(`[content2bg] ${ID} sends`, message)
           const to = ID == 'content' ? 'bg' : 'content'
           chrome.runtime.sendMessage({type, message}, response => {
-            console.log(`[content2bg] ${ID} received`, message)
+            console.log(`[content2bg] ${ID} received`, response)
             res(response)
           })
         }),
@@ -50,6 +50,27 @@ export function init_comlib(ID: 'web' | 'content' | 'bg', LOG: 0 | 1) {
           sendResponse(response)
         })
       },
+    },
+    bg2native: {
+      send: (message: any): Promise<any> =>
+        new Promise((res, rej) => {
+          if (!NATIVE_APP) return rej(`you need to specift NATIVE_APP!`)
+          if (LOG > 0) console.log(`[bg2native] ${ID} sent`, message)
+          const to = ID == 'native' ? 'bg' : 'native'
+          chrome.runtime.sendNativeMessage(NATIVE_APP, message, response => {
+            console.log(`[bg2native] ${ID} received`, response)
+            res(response)
+          })
+        }),
+      // no need ?
+      // on: (type: string, func: (data: any) => void) => {
+      //   const from = ID == 'native' ? 'bg' : 'native'
+      //   return chrome.runtime.onMessage.addListener((msg, ID, sendResponse) => {
+      //     console.log(`[bg2native] ${from} -> ${ID} received`, msg)
+      //     const response = func(msg)
+      //     sendResponse(response)
+      //   })
+      // },
     },
   }
 }

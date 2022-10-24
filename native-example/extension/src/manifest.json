@@ -11,7 +11,8 @@
     }],
     "action": {},
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "nativeMessaging"
     ],
     "host_permissions": ["<all_urls>"],
     "externally_connectable": {

@@ -1,0 +1,7 @@
+{
+  "name": "pingpong",
+  "description": "Application Ping Pong Example",
+  "path": "/usr/local/bin/pingpong",
+  "type": "stdio",
+  "allowed_origins": ["chrome-extension://ngnajdkdlegpdhhpeighanbnejnanjhm/"]
+}
